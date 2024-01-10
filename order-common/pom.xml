@@ -3,23 +3,22 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <groupId>com.order.system</groupId>
     <parent>
         <groupId>com.order.system</groupId>
-        <artifactId>order-domain</artifactId>
+        <artifactId>order-system</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <version>0.0.1-SNAPSHOT</version>
 
-    <artifactId>order-domain-core</artifactId>
+    <artifactId>order-common</artifactId>
+
+    <packaging>pom</packaging>
+    <modules>
+        <module>order-common-domain</module>
+    </modules>
 
     <properties>
     </properties>
-    <dependencies>
-        <dependency>
-            <groupId>com.order.system</groupId>
-            <artifactId>order-common-domain</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
+
 
 </project>

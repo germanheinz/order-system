@@ -13,6 +13,7 @@
         <module>order-messaging</module>
         <module>order-container</module>
         <module>order-data</module>
+        <module>order-common</module>
     </modules>
 
     <parent>
@@ -52,6 +53,16 @@
             <dependency>
                 <groupId>com.order.system</groupId>
                 <artifactId>order-messaging</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.order.system</groupId>
+                <artifactId>order-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.order.system</groupId>
+                <artifactId>order-common-domain</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
