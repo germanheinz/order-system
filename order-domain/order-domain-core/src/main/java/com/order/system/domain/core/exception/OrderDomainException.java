@@ -1,4 +1,4 @@
-package exception;
+package com.order.system.domain.core.exception;
 
 import com.order.system.domain.exception.DomainException;
 

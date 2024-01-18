@@ -1,11 +1,11 @@
-package entity;
+package com.order.system.domain.core.entity;
 
 import com.order.system.domain.entity.AggregateRoot;
 import com.order.system.domain.valueobject.*;
-import exception.OrderDomainException;
-import valueobject.OrderItemId;
-import valueobject.StreetAddress;
-import valueobject.TrackingId;
+import com.order.system.domain.core.exception.OrderDomainException;
+import com.order.system.domain.core.valueobject.OrderItemId;
+import com.order.system.domain.core.valueobject.StreetAddress;
+import com.order.system.domain.core.valueobject.TrackingId;
 
 import java.util.List;
 import java.util.UUID;
@@ -53,7 +53,7 @@ public class Order extends AggregateRoot<OrderId> {
         orderStatus = OrderStatus.CANCELLING;
         updateFailureMessages(failureMessages);
     }
-    public void cancel(){
+    public void cancel(List<String> failureMessages){
         if(!(orderStatus != OrderStatus.CANCELLING || orderStatus == OrderStatus.PENDING)){
             throw new OrderDomainException("Order is not in correct state for payment operation!");
         }

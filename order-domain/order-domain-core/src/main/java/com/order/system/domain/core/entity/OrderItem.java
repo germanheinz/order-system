@@ -1,9 +1,9 @@
-package entity;
+package com.order.system.domain.core.entity;
 
 import com.order.system.domain.entity.AggregateRoot;
 import com.order.system.domain.valueobject.Money;
 import com.order.system.domain.valueobject.OrderId;
-import valueobject.OrderItemId;
+import com.order.system.domain.core.valueobject.OrderItemId;
 
 public class OrderItem extends AggregateRoot<OrderItemId> {
     private OrderId orderId;
