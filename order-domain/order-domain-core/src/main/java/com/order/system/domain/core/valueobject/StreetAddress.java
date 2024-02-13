@@ -18,6 +18,13 @@ public class StreetAddress {
         this.city = city;
     }
 
+    public StreetAddress(UUID id, String street, String postalCode, String city) {
+        this.id = id;
+        this.street = street;
+        this.postalCode = postalCode;
+        this.city = city;
+    }
+
     public UUID getId() {
         return id;
     }

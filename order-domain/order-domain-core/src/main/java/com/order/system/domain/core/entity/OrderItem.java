@@ -70,7 +70,7 @@ public class OrderItem extends AggregateRoot<OrderItemId> {
             return this;
         }
 
-        public Builder product(Product val) {
+        public static Builder product(Product val) {
             product = val;
             return this;
         }
