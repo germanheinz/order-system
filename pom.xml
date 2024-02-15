@@ -14,6 +14,7 @@
         <module>order-container</module>
         <module>order-data</module>
         <module>order-common</module>
+        <module>order-infrastructure</module>
     </modules>
 
     <parent>

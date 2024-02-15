@@ -12,6 +12,7 @@ target/
 *.iws
 *.iml
 *.ipr
+order-infrastructure/docker-compose/volumes/
 
 ### Eclipse ###
 .apt_generated
