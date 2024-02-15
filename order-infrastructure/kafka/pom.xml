@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <name>Archetype - kafka</name>
     <url>http://maven.apache.org</url>
+    <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>kafka-producer</module>
         <module>kafka-config-data</module>
