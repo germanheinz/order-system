@@ -26,8 +26,8 @@ public class OrderItem extends AggregateRoot<OrderItemId> {
 
     boolean isPriceValid(){
         return price.iGreaterThanZero() &&
-               price.equals(product.getPrice()) &&
-               price.multiply(quantity).equals(subTotal);
+                price.equals(product.getPrice()) &&
+                price.multiply(quantity).equals(subTotal);
     }
 
 
@@ -71,8 +71,10 @@ public class OrderItem extends AggregateRoot<OrderItemId> {
         }
 
         public static Builder product(Product val) {
-            product = val;
-            return this;
+//            product = val;
+//            return this;
+            //TODO FIX
+            return null;
         }
 
         public Builder quantity(int val) {
