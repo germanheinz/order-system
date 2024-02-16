@@ -8,13 +8,14 @@
     <artifactId>order-system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
-        <module>order-application</module>
-        <module>order-domain</module>
-        <module>order-messaging</module>
-        <module>order-container</module>
-        <module>order-data</module>
+        <module>order-service/order-application</module>
+        <module>order-service/order-domain</module>
+        <module>order-service/order-messaging</module>
+        <module>order-service/order-container</module>
+        <module>order-service/order-data</module>
         <module>order-common</module>
         <module>order-infrastructure</module>
+        <module>order-service</module>
     </modules>
 
     <parent>
