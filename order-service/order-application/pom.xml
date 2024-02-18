@@ -5,24 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.order.system</groupId>
-        <artifactId>order-system</artifactId>
+        <artifactId>order-service</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>order-application</artifactId>
 
-    <properties>
-    </properties>
-
     <dependencies>
-            <dependency>
-                <groupId>com.order.system</groupId>
-                <artifactId>order-domain-application-service</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>com.order.system</groupId>
-                <artifactId>order-domain-application-service</artifactId>
-            </dependency>
             <dependency>
                 <groupId>com.order.system</groupId>
                 <artifactId>order-common-domain</artifactId>

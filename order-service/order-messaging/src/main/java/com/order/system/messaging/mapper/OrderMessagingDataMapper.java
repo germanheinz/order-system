@@ -90,7 +90,7 @@ public class OrderMessagingDataMapper {
 //    }
 
     public PaymentRequestAvroModel orderCreatedEventToPaymentRequestAvroModel(OrderCreatedEvent orderCreatedEvent){
-        Order order = orderCreatedEvent.getOrder()
+        Order order = orderCreatedEvent.getOrder();
                 return PaymentRequestAvroModel.newBuilder()
                         .setId(UUID.randomUUID().toString())
                         .setSagaId("")

@@ -13,7 +13,7 @@
     <dependencies>
         <dependency>
             <groupId>com.order.system</groupId>
-            <artifactId>order-application</artifactId>
+            <artifactId>order-domain-application-service</artifactId>
         </dependency>
         <dependency>
             <groupId>com.order.system</groupId>
