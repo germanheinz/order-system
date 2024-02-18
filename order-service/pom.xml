@@ -7,6 +7,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>order-service</artifactId>
+    <packaging>pom</packaging>
     <name>Archetype - order-service</name>
     <url>http://maven.apache.org</url>
+    <modules>
+        <module>order-messaging</module>
+    </modules>
 </project>
