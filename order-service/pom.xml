@@ -12,5 +12,10 @@
     <url>http://maven.apache.org</url>
     <modules>
         <module>order-messaging</module>
+        <module>order-application</module>
+        <module>order-container</module>
+        <module>order-domain</module>
+        <module>order-data</module>
     </modules>
+
 </project>

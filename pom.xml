@@ -8,10 +8,10 @@
     <artifactId>order-system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
-        <module>order-service/order-data</module>
         <module>order-common</module>
         <module>order-infrastructure</module>
         <module>order-service</module>
+        <module>customer-service</module>
     </modules>
 
     <parent>
