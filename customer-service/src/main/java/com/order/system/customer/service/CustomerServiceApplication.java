@@ -6,7 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication(scanBasePackages = "com.order.system")
 public class CustomerServiceApplication {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         SpringApplication.run(CustomerServiceApplication.class, args);
     }
+
 }
