@@ -7,7 +7,7 @@ import com.order.system.domain.service.dto.create.CreateOrderResponse;
 import com.order.system.domain.service.dto.track.TrackOrderQuery;
 import com.order.system.domain.service.dto.track.TrackOrderResponse;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 public interface OrderApplicationService {
 

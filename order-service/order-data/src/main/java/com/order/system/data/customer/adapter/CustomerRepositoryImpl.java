@@ -6,7 +6,7 @@ import com.order.system.domain.core.entity.Customer;
 import com.order.system.domain.service.ports.ouput.repository.CustomerRepository;
 import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import java.util.Optional;
 import java.util.UUID;
 
