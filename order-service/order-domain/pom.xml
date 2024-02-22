@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.order.system</groupId>
-        <artifactId>order-system</artifactId>
+        <artifactId>order-service</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
