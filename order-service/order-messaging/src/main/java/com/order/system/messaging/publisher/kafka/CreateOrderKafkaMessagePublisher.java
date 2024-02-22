@@ -7,8 +7,10 @@ import com.order.system.kafka.order.avro.model.PaymentRequestAvroModel;
 import com.order.system.kafka.producer.service.KafkaProducer;
 import com.order.system.messaging.mapper.OrderMessagingDataMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 @Slf4j
+@Component
 public class CreateOrderKafkaMessagePublisher implements OrderCreatedPaymentRequestMessagePublisher {
 
     private final OrderMessagingDataMapper orderMessagingDataMapper;
