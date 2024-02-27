@@ -11,6 +11,7 @@ import com.order.system.domain.service.mapper.OrderDataMapper;
 import com.order.system.domain.service.ports.ouput.repository.CustomerRepository;
 import com.order.system.domain.service.ports.ouput.repository.OrderRepository;
 //import com.order.system.domain.service.ports.ouput.repository.RestaurantRepository;
+import com.order.system.domain.service.ports.ouput.repository.RestaurantRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +29,7 @@ public class OrderCreateHelper {
 
     private final CustomerRepository customerRepository;
 
-//    private final RestaurantRepository restaurantRepository;
+    private final RestaurantRepository restaurantRepository;
 
     private final OrderDataMapper orderDataMapper;
 
@@ -36,10 +37,11 @@ public class OrderCreateHelper {
                              OrderRepository orderRepository,
                              CustomerRepository customerRepository,
 //                             RestaurantRepository restaurantRepository,
-                             OrderDataMapper orderDataMapper) {
+                             RestaurantRepository restaurantRepository, OrderDataMapper orderDataMapper) {
         this.orderDomainService = orderDomainService;
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
+        this.restaurantRepository = restaurantRepository;
 //        this.restaurantRepository = restaurantRepository;
         this.orderDataMapper = orderDataMapper;
     }
@@ -47,24 +49,24 @@ public class OrderCreateHelper {
     @Transactional
     public OrderCreatedEvent persistOrder(CreateOrderCommand createOrderCommand) {
         checkCustomer(createOrderCommand.getCustomerId());
-//        Restaurant restaurant = checkRestaurant(createOrderCommand);
+        Restaurant restaurant = checkRestaurant(createOrderCommand);
         Order order = orderDataMapper.createOrderCommandToOrder(createOrderCommand);
-        OrderCreatedEvent orderCreatedEvent = orderDomainService.validateAndInitiateOrder(order, null);
+        OrderCreatedEvent orderCreatedEvent = orderDomainService.validateAndInitiateOrder(order, restaurant);
         saveOrder(order);
         log.info("Order is created with id: {}", orderCreatedEvent.getOrder().getId());
         return orderCreatedEvent;
     }
 
-//    private Restaurant checkRestaurant(CreateOrderCommand createOrderCommand) {
-//        Restaurant restaurant = orderDataMapper.createOrderCommandToRestaurant(createOrderCommand);
-//        Optional<Restaurant> optionalRestaurant = restaurantRepository.findRestaurantInformation(restaurant);
-//        if (optionalRestaurant == null) {
-//            log.warn("Could not find restaurant with restaurant id: {}", createOrderCommand.getRestaurantId());
-//            throw new OrderDomainException("Could not find restaurant with restaurant id: " +
-//                    createOrderCommand.getRestaurantId());
-//        }
-//        return optionalRestaurant.get();
-//    }
+    private Restaurant checkRestaurant(CreateOrderCommand createOrderCommand) {
+        Restaurant restaurant = orderDataMapper.createOrderCommandToRestaurant(createOrderCommand);
+        Optional<Restaurant> optionalRestaurant = restaurantRepository.findRestaurantInformation(restaurant);
+        if (optionalRestaurant == null) {
+            log.warn("Could not find restaurant with restaurant id: {}", createOrderCommand.getRestaurantId());
+            throw new OrderDomainException("Could not find restaurant with restaurant id: " +
+                    createOrderCommand.getRestaurantId());
+        }
+        return optionalRestaurant.get();
+    }
 
     private void checkCustomer(UUID customerId) {
         Optional<Customer> customer = customerRepository.findCustomer(customerId);

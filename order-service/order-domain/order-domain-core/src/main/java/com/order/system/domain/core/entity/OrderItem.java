@@ -12,7 +12,7 @@ public class OrderItem extends AggregateRoot<OrderItemId> {
     private final Money price;
     private final Money subTotal;
 
-    private OrderItem(Builder builder) {
+    public OrderItem(Builder builder) {
         super.setId(builder.orderItemId);
         product = builder.product;
         quantity = builder.quantity;

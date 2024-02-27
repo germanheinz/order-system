@@ -16,6 +16,7 @@ import com.order.system.domain.valueobject.ProductId;
 import com.order.system.domain.valueobject.RestaurantId;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -24,11 +25,17 @@ import java.util.stream.Collectors;
 public class OrderDataMapper {
 
     public Restaurant createOrderCommandToRestaurant(CreateOrderCommand createOrderCommand) {
-        return Restaurant.Builder.builder()
+
+        Product product = new Product(new ProductId(UUID.fromString(String.valueOf(createOrderCommand.getItems().get(0).getProductId()))),"test",new Money(createOrderCommand.getItems().get(0).getPrice()));
+        List<Product> productList = new ArrayList<>();
+        productList.add(product);
+
+        return Restaurant.builder()
                 .restaurantId(new RestaurantId(createOrderCommand.getRestaurantId()))
-                .products(createOrderCommand.getItems().stream().map(orderItem ->
-                        new Product(new ProductId(orderItem.getProductId())))
-                        .collect(Collectors.toList()))
+                .products(productList)
+//                .products(createOrderCommand.getItems().stream().map(orderItem ->
+//                        new Product(new ProductId(orderItem.getProductId())))
+//                        .collect(Collectors.toList()))
                 .build();
     }
 
@@ -60,14 +67,17 @@ public class OrderDataMapper {
 
     private List<com.order.system.domain.core.entity.OrderItem> orderItemsToOrderItemEntities(
             List<OrderItem> orderItems) {
-        return orderItems.stream()
-                .map(orderItem ->
-                        com.order.system.domain.core.entity.OrderItem.Builder
-                                .product(new Product(new ProductId(orderItem.getProductId())))
-                                .price(new Money(orderItem.getPrice()))
-                                .quantity(orderItem.getQuantity())
-                                .subTotal(new Money(orderItem.getSubTotal()))
-                                .build()).collect(Collectors.toList());
+
+        List<com.order.system.domain.core.entity.OrderItem> orderTest = new ArrayList<>();
+        return orderTest;
+//        return orderItems.stream()
+//                .map(orderItem ->
+//                        com.order.system.domain.core.entity.OrderItem.Builder
+//                                .product(new Product(new ProductId(orderItem.getProductId())))
+//                                .price(new Money(orderItem.getPrice()))
+//                                .quantity(orderItem.getQuantity())
+//                                .subTotal(new Money(orderItem.getSubTotal()))
+//                                .build()).collect(Collectors.toList());
     }
 
     private StreetAddress orderAddressToStreetAddress(OrderAddress orderAddress) {
