@@ -32,12 +32,12 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public Optional<Order> findById(OrderId orderId) {
-        return orderJpaRepository.findById(UUID.fromString(orderId.toString())).map(orderDataAccessMapper::orderEntityToOrder);
+        return orderJpaRepository.findById(orderId.getValue()).map(orderDataAccessMapper::orderEntityToOrder);
     }
 
     @Override
     public Optional<Order> findByTrackingId(TrackingId trackingId) {
-        return orderJpaRepository.findByTrackingId(UUID.fromString(trackingId.toString()))
+        return orderJpaRepository.findByTrackingId(trackingId.getValue())
                 .map(orderDataAccessMapper::orderEntityToOrder);
     }
 }

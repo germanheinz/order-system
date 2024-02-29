@@ -51,7 +51,7 @@ public class OrderDataMapper {
 
     public CreateOrderResponse orderToCreateOrderResponse(Order order, String message) {
         return CreateOrderResponse.builder()
-                .orderTrackingId(UUID.fromString(order.getTrackingId().toString()))
+                .orderTrackingId(order.getTrackingId().getValue())
                 .orderStatus(order.getOrderStatus())
                 .message(message)
                 .build();
@@ -59,7 +59,7 @@ public class OrderDataMapper {
 
     public TrackOrderResponse orderToTrackOrderResponse(Order order) {
         return TrackOrderResponse.builder()
-                .orderTrackingId(UUID.fromString(order.getTrackingId().toString()))
+                .orderTrackingId(order.getTrackingId().getValue())
                 .orderStatus(order.getOrderStatus())
                 .failureMessages(order.getFailureMessages())
                 .build();

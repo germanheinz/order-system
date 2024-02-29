@@ -17,7 +17,7 @@ public class CustomerDataAccessMapper {
 
     public CustomerEntity customerToCustomerEntity(Customer customer) {
         return CustomerEntity.builder()
-                .id(UUID.fromString(customer.getId().toString()))
+                .id(customer.getId().getValue())
                 .username(customer.getUsername())
                 .firstName(customer.getFirstName())
                 .lastName(customer.getLastName())

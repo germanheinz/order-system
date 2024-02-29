@@ -28,7 +28,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
         List<UUID> restaurantProducts =
                 restaurantDataAccessMapper.restaurantToRestaurantProducts(restaurant);
         Optional<List<RestaurantEntity>> restaurantEntities = restaurantJpaRepository
-                .findByRestaurantIdAndProductIdIn(UUID.fromString(restaurant.getId().toString()),
+                .findByRestaurantIdAndProductIdIn(restaurant.getId().getValue(),
                         restaurantProducts);
         return restaurantEntities.map(restaurantDataAccessMapper::restaurantEntityToRestaurant);
     }

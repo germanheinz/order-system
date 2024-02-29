@@ -29,10 +29,10 @@ public class OrderDataAccessMapper {
 
     public OrderEntity orderToOrderEntity(Order order) {
         OrderEntity orderEntity = OrderEntity.builder()
-                .id(UUID.fromString(order.getId().toString()))
-                .customerId(UUID.fromString(order.getCustomerId().toString()))
-                .restaurantId(UUID.fromString(order.getRestaurantId().toString()))
-                .trackingId(UUID.fromString(order.getTrackingId().toString()))
+                .id(order.getId().getValue())
+                .customerId(order.getCustomerId().getValue())
+                .restaurantId(order.getRestaurantId().getValue())
+                .trackingId(order.getTrackingId().getValue())
                 .address(deliveryAddressToAddressEntity(order.getDeliveryAddress()))
                 .price(order.getPrice().getAmount())
                 .items(orderItemsToOrderItemEntities(order.getItems()))
@@ -85,7 +85,7 @@ public class OrderDataAccessMapper {
         return items.stream()
                 .map(orderItem -> OrderItemEntity.builder()
                         .id(Long.parseLong(orderItem.getId().toString()))
-                        .productId(UUID.fromString(orderItem.getProduct().getId().toString()))
+                        .productId(orderItem.getProduct().getId().getValue())
                         .price(orderItem.getPrice().getAmount())
                         .quantity(orderItem.getQuantity())
                         .subTotal(orderItem.getSubTotal().getAmount())

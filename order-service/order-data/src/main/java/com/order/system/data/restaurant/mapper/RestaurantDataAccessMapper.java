@@ -18,7 +18,7 @@ public class RestaurantDataAccessMapper {
 
     public List<UUID> restaurantToRestaurantProducts(Restaurant restaurant) {
         return restaurant.getProducts().stream()
-                .map(product -> UUID.fromString(product.getId().toString()))
+                .map(product -> product.getId().getValue())
                 .collect(Collectors.toList());
     }
 

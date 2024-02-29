@@ -1,9 +1,27 @@
 package com.order.system.domain.valueobject;
 
-public abstract class BaseId<UUID> {
-    private final UUID id;
+import java.util.Objects;
 
-    protected BaseId(UUID id) {
-        this.id = id;
+public abstract class BaseId<T> {
+    private final T value;
+
+    protected BaseId(T value) {
+        this.value = value;
+    }
+    public T getValue() {
+        return value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BaseId<?> baseId = (BaseId<?>) o;
+        return Objects.equals(value, baseId.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 }
