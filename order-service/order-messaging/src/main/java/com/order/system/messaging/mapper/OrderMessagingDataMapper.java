@@ -50,8 +50,8 @@ public class OrderMessagingDataMapper {
 //    public PaymentRequestAvroModel orderPaymentEventToPaymentRequestAvroModel(String sagaId, OrderPaymentEventPayload
 //                                                                              orderPaymentEventPayload) {
 //        return PaymentRequestAvroModel.newBuilder()
-//                .setId(UUID.randomUUID().toString())
-//                .setSagaId(sagaId)
+//                .setId(UUID.randomUUID())
+//                .setSagaId(UUID.randomUUID())
 //                .setCustomerId(orderPaymentEventPayload.getCustomerId())
 //                .setOrderId(orderPaymentEventPayload.getOrderId())
 //                .setPrice(orderPaymentEventPayload.getPrice())
@@ -59,7 +59,7 @@ public class OrderMessagingDataMapper {
 //                .setPaymentOrderStatus(PaymentOrderStatus.valueOf(orderPaymentEventPayload.getPaymentOrderStatus()))
 //                .build();
 //    }
-
+//
 //    public RestaurantApprovalRequestAvroModel
 //    orderApprovalEventToRestaurantApprovalRequestAvroModel(String sagaId, OrderApprovalEventPayload
 //            orderApprovalEventPayload) {
@@ -79,7 +79,7 @@ public class OrderMessagingDataMapper {
 //                .setCreatedAt(orderApprovalEventPayload.getCreatedAt().toInstant())
 //                .build();
 //    }
-
+//
 //    public CustomerModel customerAvroModeltoCustomerModel(CustomerAvroModel customerAvroModel) {
 //        return CustomerModel.builder()
 //                .id(customerAvroModel.getId())
@@ -92,10 +92,10 @@ public class OrderMessagingDataMapper {
     public PaymentRequestAvroModel orderCreatedEventToPaymentRequestAvroModel(OrderCreatedEvent orderCreatedEvent){
         Order order = orderCreatedEvent.getOrder();
                 return PaymentRequestAvroModel.newBuilder()
-                        .setId(UUID.randomUUID())
-                        .setSagaId(UUID.randomUUID())
-                        .setCustomerId(order.getCustomerId().getValue())
-                        .setOrderId(order.getId().getValue())
+                        .setId(UUID.randomUUID().toString())
+                        .setSagaId("")
+                        .setCustomerId(order.getCustomerId().getValue().toString())
+                        .setOrderId(order.getId().getValue().toString())
                         .setPrice(order.getPrice().getAmount())
                         .setCreatedAt(orderCreatedEvent.getCreatedAt().toInstant())
                         .setPaymentOrderStatus(PaymentOrderStatus.PENDING)
@@ -105,10 +105,10 @@ public class OrderMessagingDataMapper {
     public PaymentRequestAvroModel orderCancelEventToPaymentRequestAvroModel(OrderCancelledEvent orderCancelEvent){
         Order order = orderCancelEvent.getOrder();
         return PaymentRequestAvroModel.newBuilder()
-                .setId(UUID.randomUUID())
-                .setSagaId(UUID.randomUUID())
-                .setCustomerId(order.getCustomerId().getValue())
-                .setOrderId(order.getId().getValue())
+                .setId(UUID.randomUUID().toString())
+                .setSagaId("")
+                .setCustomerId(order.getCustomerId().getValue().toString())
+                .setOrderId(order.getId().getValue().toString())
                 .setPrice(order.getPrice().getAmount())
                 .setCreatedAt(orderCancelEvent.getCreatedAt().toInstant())
                 .setPaymentOrderStatus(PaymentOrderStatus.CANCELLED)
