@@ -10,7 +10,7 @@ import java.util.function.BiConsumer;
 @Component
 public class OrderKafkaMessageHelper {
 
-    public <T> BiConsumer<SendResult<String, T>, Throwable> getKafkaCallback(String paymentRequestTopicName, T requestAvroModel, String orderId, String requestAvroModelName) {
+    public <T> BiConsumer<SendResult<String, T>, Throwable> getKafkaCallback(String requestTopicName, T requestAvroModel, String orderId, String requestAvroModelName) {
 
         return (result, ex) -> {
             if(ex == null){
@@ -23,7 +23,7 @@ public class OrderKafkaMessageHelper {
                         metadata.offset(),
                         metadata.timestamp());
             } else {
-                log.info("Error while sending" + requestAvroModelName + "message {} to topic {}", requestAvroModel.toString(), paymentRequestTopicName, ex);
+                log.info("Error while sending" + requestAvroModelName + "message {} to topic {}", requestAvroModel.toString(), requestTopicName, ex);
             }
         };
 

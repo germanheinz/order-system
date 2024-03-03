@@ -16,19 +16,17 @@ public class PayOrderKafkaMessagePublisher implements OrderPaidRestaurantRequest
 
     private final OrderMessagingDataMapper orderMessagingDataMapper;
     private final OrderServiceConfigData orderServiceConfigData;
-    private final KafkaProducer<String, PaymentRequestAvroModel> kafkaProducer;
+    private final KafkaProducer<String, RestaurantApprovalRequestAvroModel> kafkaProducer;
 
 
     private final OrderKafkaMessageHelper orderKafkaMessageHelper;
 
-
-    public PayOrderKafkaMessagePublisher(OrderMessagingDataMapper orderMessagingDataMapper, OrderServiceConfigData orderServiceConfigData, KafkaProducer<String, PaymentRequestAvroModel> kafkaProducer, OrderKafkaMessageHelper orderKafkaMessageHelper) {
+    public PayOrderKafkaMessagePublisher(OrderMessagingDataMapper orderMessagingDataMapper, OrderServiceConfigData orderServiceConfigData, KafkaProducer<String, RestaurantApprovalRequestAvroModel> kafkaProducer, OrderKafkaMessageHelper orderKafkaMessageHelper) {
         this.orderMessagingDataMapper = orderMessagingDataMapper;
         this.orderServiceConfigData = orderServiceConfigData;
         this.kafkaProducer = kafkaProducer;
         this.orderKafkaMessageHelper = orderKafkaMessageHelper;
     }
-
 
     @Override
     public void publish(OrderPaidEvent domainEvent) {
@@ -37,13 +35,13 @@ public class PayOrderKafkaMessagePublisher implements OrderPaidRestaurantRequest
         RestaurantApprovalRequestAvroModel restaurantApprovalRequestAvroModel = orderMessagingDataMapper.orderPaidEventToRestaurantApprovalRequestAvroModel(domainEvent);
 
         //TODO
-//        kafkaProducer.send(orderServiceConfigData.getRestaurantApprovalRequestTopicName(),
-//                orderId,
-//                restaurantApprovalRequestAvroModel,
-//                orderKafkaMessageHelper.getKafkaCallback(orderServiceConfigData.getRestaurantApprovalRequestTopicName(),
-//                                restaurantApprovalRequestAvroModel,
-//                                orderId,
-//                                "RestaurantApprovalRequestAvroModel"));
+        kafkaProducer.send(orderServiceConfigData.getRestaurantApprovalRequestTopicName(),
+                orderId,
+                restaurantApprovalRequestAvroModel,
+                orderKafkaMessageHelper.getKafkaCallback(orderServiceConfigData.getRestaurantApprovalRequestTopicName(),
+                                restaurantApprovalRequestAvroModel,
+                                orderId,
+                                "RestaurantApprovalRequestAvroModel"));
 
         log.info("RestaurantApprovalRequestAvroModel sent to kafka for order id: {}", orderId);
     }
