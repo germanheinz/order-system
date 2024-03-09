@@ -2,6 +2,7 @@ package com.order.system.kafka.producer.service.impl;
 
 import com.order.system.kafka.producer.exception.KafkaProducerException;
 import com.order.system.kafka.producer.service.KafkaProducer;
+import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.avro.specific.SpecificRecordBase;
 import org.springframework.kafka.KafkaException;
@@ -36,11 +37,11 @@ public class KafkaProducerImpl<K extends Serializable, V extends SpecificRecordB
         }
     }
 
-//    @PreDestroy
-//    public void close() {
-//        if (kafkaTemplate != null) {
-//            log.info("Closing kafka producer!");
-//            kafkaTemplate.destroy();
-//        }
-//    }
+    @PreDestroy
+    public void close() {
+        if (kafkaTemplate != null) {
+            log.info("Closing kafka producer!");
+            kafkaTemplate.destroy();
+        }
+    }
 }
