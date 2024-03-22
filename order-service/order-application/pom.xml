@@ -35,6 +35,10 @@
             <groupId>com.order.system</groupId>
             <artifactId>order-domain-application-service</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.order.system</groupId>
+            <artifactId>saga</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

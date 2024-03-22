@@ -38,3 +38,5 @@ build/
 
 ### Mac OS ###
 .DS_Store
+order-infrastructure/docker-compose/backup/volumes/kafka/broker-1/.lock
+order-infrastructure/docker-compose/

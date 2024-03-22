@@ -2,7 +2,7 @@
 //
 //import com.order.system.domain.service.config.OrderServiceConfigData;
 //import com.order.system.kafka.order.avro.model.RestaurantApprovalRequestAvroModel;
-//import com.order.system.kafka.producer.KafkaMessageHelper;
+//import com.order.system.kafka.producer.OrderKafkaMessageHelper;
 //import com.order.system.kafka.producer.service.KafkaProducer;
 //import com.order.system.messaging.mapper.OrderMessagingDataMapper;
 //import lombok.extern.slf4j.Slf4j;
@@ -17,12 +17,12 @@
 //    private final OrderMessagingDataMapper orderMessagingDataMapper;
 //    private final KafkaProducer<String, RestaurantApprovalRequestAvroModel> kafkaProducer;
 //    private final OrderServiceConfigData orderServiceConfigData;
-//    private final KafkaMessageHelper kafkaMessageHelper;
+//    private final OrderKafkaMessageHelper kafkaMessageHelper;
 //
 //    public OrderApprovalEventKafkaPublisher(OrderMessagingDataMapper orderMessagingDataMapper,
 //                                            KafkaProducer<String, RestaurantApprovalRequestAvroModel> kafkaProducer,
 //                                            OrderServiceConfigData orderServiceConfigData,
-//                                            KafkaMessageHelper kafkaMessageHelper) {
+//                                            OrderKafkaMessageHelper kafkaMessageHelper) {
 //        this.orderMessagingDataMapper = orderMessagingDataMapper;
 //        this.kafkaProducer = kafkaProducer;
 //        this.orderServiceConfigData = orderServiceConfigData;
