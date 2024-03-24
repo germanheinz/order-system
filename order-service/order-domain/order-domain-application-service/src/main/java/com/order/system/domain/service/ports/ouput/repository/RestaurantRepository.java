@@ -1,7 +1,5 @@
 package com.order.system.domain.service.ports.ouput.repository;
 
-
-
 import com.order.system.domain.core.entity.Restaurant;
 
 import java.util.Optional;

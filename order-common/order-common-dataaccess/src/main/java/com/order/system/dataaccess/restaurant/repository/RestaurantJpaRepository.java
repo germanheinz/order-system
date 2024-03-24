@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Repository
+@Repository("RestaurantJpaRepository")
 public interface RestaurantJpaRepository extends JpaRepository<RestaurantEntity, RestaurantEntityId> {
 
     Optional<List<RestaurantEntity>> findByRestaurantIdAndProductIdIn(UUID restaurantId, List<UUID> productIds);

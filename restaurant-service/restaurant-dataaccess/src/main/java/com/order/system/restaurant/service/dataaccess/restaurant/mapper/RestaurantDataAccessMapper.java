@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
 @Component
 public class RestaurantDataAccessMapper {
 
@@ -52,7 +51,7 @@ public class RestaurantDataAccessMapper {
 
     public OrderApprovalEntity orderApprovalToOrderApprovalEntity(OrderApproval orderApproval) {
         return OrderApprovalEntity.builder()
-                .id(UUID.randomUUID())
+                .id(orderApproval.getId().getValue())
                 .restaurantId(orderApproval.getRestaurantId().getValue())
                 .orderId(orderApproval.getOrderId().getValue())
                 .status(orderApproval.getApprovalStatus())
@@ -69,3 +68,4 @@ public class RestaurantDataAccessMapper {
     }
 
 }
+
