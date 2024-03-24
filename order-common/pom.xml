@@ -16,6 +16,7 @@
     <modules>
         <module>order-common-domain</module>
         <module>order-common-application</module>
+        <module>order-common-dataaccess</module>
     </modules>
 
     <properties>
