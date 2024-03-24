@@ -6,7 +6,7 @@ import com.order.system.restaurant.service.domain.event.OrderApprovedEvent;
 import com.order.system.restaurant.service.domain.event.OrderRejectedEvent;
 import com.order.system.domain.event.publisher.DomainEventPublisher;
 import com.order.system.domain.valueobject.OrderApprovalStatus;
-//import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -24,7 +24,7 @@ public class RestaurantDomainServiceImpl implements RestaurantDomainService {
                                             DomainEventPublisher<OrderRejectedEvent>
                                                     orderRejectedEventDomainEventPublisher) {
         restaurant.validateOrder(failureMessages);
-//        log.info("Validating order with id: {}", restaurant.getOrderDetail().getId().getValue());
+//        log.("Validating order with id: {}", restaurant.getOrderDetail().getId().getValue());
 
         if (failureMessages.isEmpty()) {
 //            log.info("Order is approved for order id: {}", restaurant.getOrderDetail().getId().getValue());

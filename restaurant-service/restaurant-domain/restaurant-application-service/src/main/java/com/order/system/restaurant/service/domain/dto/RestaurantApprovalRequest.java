@@ -6,6 +6,7 @@ import lombok.Getter;
 
 import com.order.system.domain.valueobject.RestaurantOrderStatus;
 import com.order.system.restaurant.service.domain.entity.Product;
+import org.springframework.stereotype.Component;
 
 
 @Getter
