@@ -6,7 +6,6 @@ import com.order.system.payment.service.domain.event.PaymentCompletedEvent;
 import com.order.system.payment.service.domain.event.PaymentFailedEvent;
 import com.order.system.kafka.order.avro.model.PaymentOrderStatus;
 import com.order.system.kafka.order.avro.model.PaymentRequestAvroModel;
-import com.order.system.kafka.order.avro.model.PaymentResponseAvroModel;
 import com.order.system.kafka.order.avro.model.PaymentStatus;
 import org.springframework.stereotype.Component;
 

@@ -4,7 +4,6 @@ import com.order.system.payment.service.domain.config.PaymentServiceConfigData;
 import com.order.system.payment.service.domain.event.PaymentCancelledEvent;
 import com.order.system.payment.service.domain.ports.output.message.publisher.PaymentCancelledMessagePublisher;
 import com.order.system.payment.service.messaging.mapper.PaymentMessagingDataMapper;
-import com.order.system.kafka.order.avro.model.PaymentResponseAvroModel;
 import com.order.system.kafka.producer.OrderKafkaMessageHelper;
 import com.order.system.kafka.producer.service.KafkaProducer;
 import lombok.extern.slf4j.Slf4j;

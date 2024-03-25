@@ -1,14 +1,14 @@
 {
-    "namespace": "com.food.ordering.system.kafka.order.avro.model",
+    "namespace": "com.order.system.kafka.order.avro.model",
     "type": "record",
     "name": "PaymentResponseAvroModel",
     "fields": [
         {
-            "name": "id",
-            "type": {
-                "type": "string",
-                "logicalType": "uuid"
-            }
+                "name": "id",
+                "type": {
+                    "type": "string",
+                    "logicalType": "uuid"
+                }
         },
         {
             "name": "sagaId",

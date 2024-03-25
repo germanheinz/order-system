@@ -11,8 +11,8 @@ import java.util.UUID;
 public class CustomerDataAccessMapper {
 
     public Customer customerEntityToCustomer(CustomerEntity customerEntity) {
-//        return new Customer(new CustomerId(customerEntity.getId()));
-    return null;
+        return new Customer(new CustomerId(customerEntity.getId()));
+//    return null;
     }
 
     public CustomerEntity customerToCustomerEntity(Customer customer) {
