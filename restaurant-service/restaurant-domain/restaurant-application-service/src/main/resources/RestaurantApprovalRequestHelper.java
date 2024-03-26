@@ -1,6 +1,6 @@
-package com.food.ordering.system.restaurant.service.domain;
+package com.order.system.restaurant.service.domain;
 
-import com.food.ordering.system.domain.valueobject.OrderId;
+import com.order.system.domain.valueobject.OrderId;
 import com.order.system.restaurant.service.domain.RestaurantDomainService;
 import com.order.system.restaurant.service.domain.dto.RestaurantApprovalRequest;
 import com.order.system.restaurant.service.domain.entity.Restaurant;

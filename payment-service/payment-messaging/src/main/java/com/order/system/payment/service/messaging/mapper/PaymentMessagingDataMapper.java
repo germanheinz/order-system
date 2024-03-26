@@ -1,5 +1,6 @@
 package com.order.system.payment.service.messaging.mapper;
 
+import com.order.system.kafka.order.avro.model.PaymentResponseAvroModel;
 import com.order.system.payment.service.domain.dto.PaymentRequest;
 import com.order.system.payment.service.domain.event.PaymentCancelledEvent;
 import com.order.system.payment.service.domain.event.PaymentCompletedEvent;
@@ -17,11 +18,11 @@ public class PaymentMessagingDataMapper {
     public PaymentResponseAvroModel
     paymentCompletedEventToPaymentResponseAvroModel(PaymentCompletedEvent paymentCompletedEvent) {
         return PaymentResponseAvroModel.newBuilder()
-                .setId(UUID.randomUUID())
-                .setSagaId(UUID.randomUUID())
-                .setPaymentId(UUID.fromString(paymentCompletedEvent.getPayment().getId().getValue().toString()))
-                .setCustomerId(UUID.fromString(paymentCompletedEvent.getPayment().getCustomerId().getValue().toString()))
-                .setOrderId(UUID.fromString(paymentCompletedEvent.getPayment().getOrderId().getValue().toString()))
+                .setId(UUID.randomUUID().toString())
+                .setSagaId("")
+                .setPaymentId(paymentCompletedEvent.getPayment().getId().getValue().toString())
+                .setCustomerId(paymentCompletedEvent.getPayment().getCustomerId().getValue().toString())
+                .setOrderId(paymentCompletedEvent.getPayment().getOrderId().getValue().toString())
                 .setPrice(paymentCompletedEvent.getPayment().getPrice().getAmount())
                 .setCreatedAt(paymentCompletedEvent.getCreatedAt().toInstant())
                 .setPaymentStatus(PaymentStatus.valueOf(paymentCompletedEvent.getPayment().getPaymentStatus().name()))
@@ -32,11 +33,11 @@ public class PaymentMessagingDataMapper {
     public PaymentResponseAvroModel
     paymentCancelledEventToPaymentResponseAvroModel(PaymentCancelledEvent paymentCancelledEvent) {
         return PaymentResponseAvroModel.newBuilder()
-                .setId(UUID.fromString(UUID.randomUUID().toString()))
-                .setSagaId(UUID.fromString(""))
-                .setPaymentId(UUID.fromString(paymentCancelledEvent.getPayment().getId().getValue().toString()))
-                .setCustomerId(UUID.fromString(paymentCancelledEvent.getPayment().getCustomerId().getValue().toString()))
-                .setOrderId(UUID.fromString(paymentCancelledEvent.getPayment().getOrderId().getValue().toString()))
+                .setId(UUID.randomUUID().toString())
+                .setSagaId("")
+                .setPaymentId(paymentCancelledEvent.getPayment().getId().getValue().toString())
+                .setCustomerId(paymentCancelledEvent.getPayment().getCustomerId().getValue().toString())
+                .setOrderId(paymentCancelledEvent.getPayment().getOrderId().getValue().toString())
                 .setPrice(paymentCancelledEvent.getPayment().getPrice().getAmount())
                 .setCreatedAt(paymentCancelledEvent.getCreatedAt().toInstant())
                 .setPaymentStatus(PaymentStatus.valueOf(paymentCancelledEvent.getPayment().getPaymentStatus().name()))
@@ -47,11 +48,11 @@ public class PaymentMessagingDataMapper {
     public PaymentResponseAvroModel
     paymentFailedEventToPaymentResponseAvroModel(PaymentFailedEvent paymentFailedEvent) {
         return PaymentResponseAvroModel.newBuilder()
-                .setId(UUID.randomUUID())
-                .setSagaId(UUID.randomUUID())
-                .setPaymentId(UUID.fromString(paymentFailedEvent.getPayment().getId().getValue().toString()))
-                .setCustomerId(UUID.fromString(paymentFailedEvent.getPayment().getCustomerId().getValue().toString()))
-                .setOrderId(UUID.fromString(paymentFailedEvent.getPayment().getOrderId().getValue().toString()))
+                .setId(UUID.randomUUID().toString())
+                .setSagaId("")
+                .setPaymentId(paymentFailedEvent.getPayment().getId().getValue().toString())
+                .setCustomerId(paymentFailedEvent.getPayment().getCustomerId().getValue().toString())
+                .setOrderId(paymentFailedEvent.getPayment().getOrderId().getValue().toString())
                 .setPrice(paymentFailedEvent.getPayment().getPrice().getAmount())
                 .setCreatedAt(paymentFailedEvent.getCreatedAt().toInstant())
                 .setPaymentStatus(PaymentStatus.valueOf(paymentFailedEvent.getPayment().getPaymentStatus().name()))

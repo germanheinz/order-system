@@ -1,33 +1,41 @@
 package com.order.system.domain.core.entity;
 
 import com.order.system.domain.entity.AggregateRoot;
+import com.order.system.domain.entity.BaseEntity;
 import com.order.system.domain.valueobject.Money;
 import com.order.system.domain.valueobject.OrderId;
 import com.order.system.domain.core.valueobject.OrderItemId;
 
-public class OrderItem extends AggregateRoot<OrderItemId> {
+
+public class OrderItem extends BaseEntity<OrderItemId> {
     private OrderId orderId;
     private final Product product;
     private final int quantity;
     private final Money price;
     private final Money subTotal;
 
-    public OrderItem(Builder builder) {
+    void initializeOrderItem(OrderId orderId, OrderItemId orderItemId) {
+        this.orderId = orderId;
+        super.setId(orderItemId);
+    }
+
+    boolean isPriceValid() {
+//        return price.iGreaterThanZero() &&
+//                price.equals(product.getPrice()) &&
+//                price.multiply(quantity).equals(subTotal);
+    return true;
+    }
+
+    private OrderItem(Builder builder) {
         super.setId(builder.orderItemId);
         product = builder.product;
         quantity = builder.quantity;
         price = builder.price;
         subTotal = builder.subTotal;
     }
-    void initializeOrderItem(OrderId orderId, OrderItemId orderItemId){
-        super.setId(orderItemId);
-        this.orderId = orderId;
-    }
 
-    boolean isPriceValid(){
-        return price.iGreaterThanZero() &&
-                price.equals(product.getPrice()) &&
-                price.multiply(quantity).equals(subTotal);
+    public static Builder builder() {
+        return new Builder();
     }
 
 
@@ -61,20 +69,14 @@ public class OrderItem extends AggregateRoot<OrderItemId> {
         private Builder() {
         }
 
-        public static Builder builder() {
-            return new Builder();
-        }
-
         public Builder orderItemId(OrderItemId val) {
             orderItemId = val;
             return this;
         }
 
-        public static Builder product(Product val) {
-//            product = val;
-//            return this;
-            //TODO FIX
-            return null;
+        public Builder product(Product val) {
+            product = val;
+            return this;
         }
 
         public Builder quantity(int val) {

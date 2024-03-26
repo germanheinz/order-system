@@ -47,7 +47,7 @@ public class OrderDataAccessMapper {
     }
 
     public Order orderEntityToOrder(OrderEntity orderEntity) {
-        return Order.Builder.builder()
+        return Order.builder()
                 .orderId(new OrderId(orderEntity.getId()))
                 .customerId(new CustomerId(orderEntity.getCustomerId()))
                 .restaurantId(new RestaurantId(orderEntity.getRestaurantId()))
@@ -56,15 +56,15 @@ public class OrderDataAccessMapper {
                 .items(orderItemEntitiesToOrderItems(orderEntity.getItems()))
                 .trackingId(new TrackingId(orderEntity.getTrackingId()))
                 .orderStatus(orderEntity.getOrderStatus())
-//                .failureMessages(orderEntity.getFailureMessages().isEmpty() ? new ArrayList<>() :
-//                        new ArrayList<>(Arrays.asList(orderEntity.getFailureMessages()
-//                                .split(FAILURE_MESSAGE_DELIMITER))))
+                .failureMessages(orderEntity.getFailureMessages().isEmpty() ? new ArrayList<>() :
+                        new ArrayList<>(Arrays.asList(orderEntity.getFailureMessages()
+                                .split(FAILURE_MESSAGE_DELIMITER))))
                 .build();
     }
 
     private List<OrderItem> orderItemEntitiesToOrderItems(List<OrderItemEntity> items) {
         return items.stream()
-                .map(orderItemEntity -> OrderItem.Builder.builder()
+                .map(orderItemEntity -> OrderItem.builder()
                         .orderItemId(new OrderItemId(orderItemEntity.getId()))
                         .product(new Product(new ProductId(orderItemEntity.getProductId())))
                         .price(new Money(orderItemEntity.getPrice()))
@@ -84,7 +84,7 @@ public class OrderDataAccessMapper {
     private List<OrderItemEntity> orderItemsToOrderItemEntities(List<OrderItem> items) {
         return items.stream()
                 .map(orderItem -> OrderItemEntity.builder()
-                        .id(Long.parseLong(orderItem.getId().toString()))
+                        .id(orderItem.getId().getValue())
                         .productId(orderItem.getProduct().getId().getValue())
                         .price(orderItem.getPrice().getAmount())
                         .quantity(orderItem.getQuantity())

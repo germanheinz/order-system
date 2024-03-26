@@ -1,4 +1,4 @@
-package com.food.ordering.system.restaurant.service.domain;
+package com.order.system.restaurant.service.domain;
 
 import com.order.system.restaurant.service.domain.dto.RestaurantApprovalRequest;
 import com.order.system.restaurant.service.domain.event.OrderApprovalEvent;

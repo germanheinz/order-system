@@ -1,5 +1,6 @@
 package com.order.system.payment.service.messaging.publisher.kafka;
 
+import com.order.system.kafka.order.avro.model.PaymentResponseAvroModel;
 import com.order.system.payment.service.domain.config.PaymentServiceConfigData;
 import com.order.system.payment.service.domain.event.PaymentCancelledEvent;
 import com.order.system.payment.service.domain.ports.output.message.publisher.PaymentCancelledMessagePublisher;

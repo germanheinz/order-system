@@ -6,8 +6,6 @@ import com.order.system.domain.valueobject.ProductId;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 public class Product extends BaseEntity<ProductId> {
     private String name;
     private Money price;
@@ -19,10 +17,10 @@ public class Product extends BaseEntity<ProductId> {
     }
 
     public Product(ProductId productId) {
-        super();
+        super.setId(productId);
     }
 
-    public void updateWithConfirmedNameAndPrice(String name, Money price){
+    public void updateWithConfirmedNameAndPrice(String name, Money price) {
         this.name = name;
         this.price = price;
     }

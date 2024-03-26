@@ -4,11 +4,11 @@
     "name": "PaymentResponseAvroModel",
     "fields": [
         {
-                "name": "id",
-                "type": {
-                    "type": "string",
-                    "logicalType": "uuid"
-                }
+            "name": "id",
+            "type": {
+                "type": "string",
+                "logicalType": "uuid"
+            }
         },
         {
             "name": "sagaId",
