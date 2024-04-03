@@ -1,9 +1,11 @@
 package com.order.system.domain.service;
 
+import com.order.system.config.kafka.SagaStatus;
 import com.order.system.domain.core.entity.Order;
 import com.order.system.domain.core.exception.OrderNotFoundException;
 import com.order.system.domain.service.ports.ouput.repository.OrderRepository;
 import com.order.system.domain.valueobject.OrderId;
+import com.order.system.domain.valueobject.OrderStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -31,5 +33,20 @@ public class OrderSagaHelper {
 
     void saveOrder(Order order) {
         orderRepository.save(order);
+    }
+
+    SagaStatus orderStatusToSagaStatus(OrderStatus orderStatus) {
+        switch (orderStatus) {
+            case PAID:
+                return SagaStatus.PROCESSING;
+            case APPROVED:
+                return SagaStatus.SUCCEEDED;
+            case CANCELLING:
+                return SagaStatus.COMPENSATING;
+            case CANCELLED:
+                return SagaStatus.COMPENSATED;
+            default:
+                return SagaStatus.STARTED;
+        }
     }
 }

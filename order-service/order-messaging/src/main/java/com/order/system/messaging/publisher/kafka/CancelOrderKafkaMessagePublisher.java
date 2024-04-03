@@ -1,9 +1,9 @@
 package com.order.system.messaging.publisher.kafka;
 
 import com.order.system.domain.core.event.OrderCancelledEvent;
+import com.order.system.domain.event.publisher.DomainEventPublisher;
 import com.order.system.domain.service.OrderCreateHelper;
 import com.order.system.domain.service.config.OrderServiceConfigData;
-import com.order.system.domain.service.ports.ouput.message.publisher.payment.OrderCancelPaymentRequestMessagePublisher;
 
 import com.order.system.kafka.order.avro.model.PaymentRequestAvroModel;
 import com.order.system.kafka.producer.OrderKafkaMessageHelper;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class CancelOrderKafkaMessagePublisher implements OrderCancelPaymentRequestMessagePublisher {
+public class CancelOrderKafkaMessagePublisher implements DomainEventPublisher<OrderCancelledEvent> {
 
     private final OrderMessagingDataMapper orderMessagingDataMapper;
     private final OrderServiceConfigData orderServiceConfigData;

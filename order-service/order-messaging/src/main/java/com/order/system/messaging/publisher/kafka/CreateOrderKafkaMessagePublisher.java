@@ -1,8 +1,8 @@
 package com.order.system.messaging.publisher.kafka;
 
 import com.order.system.domain.core.event.OrderCreatedEvent;
+import com.order.system.domain.event.publisher.DomainEventPublisher;
 import com.order.system.domain.service.config.OrderServiceConfigData;
-import com.order.system.domain.service.ports.ouput.message.publisher.payment.OrderCreatedPaymentRequestMessagePublisher;
 import com.order.system.kafka.order.avro.model.PaymentRequestAvroModel;
 import com.order.system.kafka.producer.OrderKafkaMessageHelper;
 import com.order.system.kafka.producer.service.KafkaProducer;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class CreateOrderKafkaMessagePublisher implements OrderCreatedPaymentRequestMessagePublisher {
+public class CreateOrderKafkaMessagePublisher implements DomainEventPublisher<OrderCreatedEvent> {
 
     private final OrderMessagingDataMapper orderMessagingDataMapper;
     private final OrderServiceConfigData orderServiceConfigData;
