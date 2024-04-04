@@ -1,12 +1,13 @@
 package com.order.system.data.outbox.restaurantapproval.adapter;
 
-import com.food.ordering.system.order.service.dataaccess.outbox.restaurantapproval.exception.ApprovalOutboxNotFoundException;
-import com.food.ordering.system.order.service.dataaccess.outbox.restaurantapproval.mapper.ApprovalOutboxDataAccessMapper;
-import com.food.ordering.system.order.service.dataaccess.outbox.restaurantapproval.repository.ApprovalOutboxJpaRepository;
-import com.food.ordering.system.order.service.domain.outbox.model.approval.OrderApprovalOutboxMessage;
-import com.food.ordering.system.order.service.domain.ports.output.repository.ApprovalOutboxRepository;
-import com.food.ordering.system.outbox.OutboxStatus;
-import com.food.ordering.system.saga.SagaStatus;
+
+import com.order.system.config.kafka.SagaStatus;
+import com.order.system.data.outbox.restaurantapproval.exception.ApprovalOutboxNotFoundException;
+import com.order.system.data.outbox.restaurantapproval.mapper.ApprovalOutboxDataAccessMapper;
+import com.order.system.data.outbox.restaurantapproval.repository.ApprovalOutboxJpaRepository;
+import com.order.system.domain.service.outbox.model.approval.OrderApprovalOutboxMessage;
+import com.order.system.domain.service.ports.ouput.repository.ApprovalOutboxRepository;
+import com.order.system.outbox.OutboxStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;

@@ -1,8 +1,8 @@
 package com.order.system.data.outbox.restaurantapproval.repository;
 
-import com.food.ordering.system.order.service.dataaccess.outbox.restaurantapproval.entity.ApprovalOutboxEntity;
-import com.food.ordering.system.outbox.OutboxStatus;
-import com.food.ordering.system.saga.SagaStatus;
+import com.order.system.config.kafka.SagaStatus;
+import com.order.system.data.outbox.restaurantapproval.entity.ApprovalOutboxEntity;
+import com.order.system.outbox.OutboxStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

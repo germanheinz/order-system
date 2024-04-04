@@ -5,6 +5,7 @@ import com.order.system.domain.core.entity.Order;
 import com.order.system.domain.core.entity.Product;
 import com.order.system.domain.core.entity.Restaurant;
 
+import com.order.system.domain.core.event.OrderCancelledEvent;
 import com.order.system.domain.core.event.OrderCreatedEvent;
 import com.order.system.domain.core.event.OrderPaidEvent;
 import com.order.system.domain.core.valueobject.StreetAddress;
@@ -74,6 +75,18 @@ public class OrderDataMapper {
                                 .subTotal(new Money(orderItem.getSubTotal()))
                                 .build()).collect(Collectors.toList());
     }
+
+    public OrderPaymentEventPayload orderCancelledEventToOrderPaymentEventPayload(OrderCancelledEvent
+                                                                                          orderCancelledEvent) {
+        return OrderPaymentEventPayload.builder()
+                .customerId(orderCancelledEvent.getOrder().getCustomerId().getValue().toString())
+                .orderId(orderCancelledEvent.getOrder().getId().getValue().toString())
+                .price(orderCancelledEvent.getOrder().getPrice().getAmount())
+                .createdAt(orderCancelledEvent.getCreatedAt())
+                .paymentOrderStatus(PaymentOrderStatus.CANCELLED.name())
+                .build();
+    }
+
 
     private StreetAddress orderAddressToStreetAddress(OrderAddress orderAddress) {
         return new StreetAddress(

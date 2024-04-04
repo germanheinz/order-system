@@ -1,11 +1,11 @@
 package com.order.system.data.outbox.restaurantapproval.entity;
 
-import com.food.ordering.system.domain.valueobject.OrderStatus;
-import com.food.ordering.system.outbox.OutboxStatus;
-import com.food.ordering.system.saga.SagaStatus;
+import com.order.system.config.kafka.SagaStatus;
+import com.order.system.domain.valueobject.OrderStatus;
+import com.order.system.outbox.OutboxStatus;
+import jakarta.persistence.*;
 import lombok.*;
 
-import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.UUID;

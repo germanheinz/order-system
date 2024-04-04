@@ -1,7 +1,8 @@
 package com.order.system.data.outbox.restaurantapproval.mapper;
 
-import com.food.ordering.system.order.service.dataaccess.outbox.restaurantapproval.entity.ApprovalOutboxEntity;
-import com.food.ordering.system.order.service.domain.outbox.model.approval.OrderApprovalOutboxMessage;
+
+import com.order.system.data.outbox.restaurantapproval.entity.ApprovalOutboxEntity;
+import com.order.system.domain.service.outbox.model.approval.OrderApprovalOutboxMessage;
 import org.springframework.stereotype.Component;
 
 @Component
