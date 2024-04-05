@@ -1,11 +1,13 @@
 package com.order.system.messaging.listener.kafka;
 
+import com.order.system.domain.core.exception.OrderNotFoundException;
 import com.order.system.domain.service.ports.input.message.listener.payment.PaymentResponseMessageListener;
 import com.order.system.kafka.comsumer.KafkaConsumer;
 import com.order.system.kafka.order.avro.model.PaymentResponseAvroModel;
 import com.order.system.kafka.order.avro.model.PaymentStatus;
 import com.order.system.messaging.mapper.OrderMessagingDataMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
@@ -42,6 +44,7 @@ public class PaymentResponseKafkaListener implements KafkaConsumer<PaymentRespon
                 );
 
         messages.forEach(paymentResponseAvroModel -> {
+          try {
             if(PaymentStatus.COMPLETED == paymentResponseAvroModel.getPaymentStatus()){
                 log.info("Processing succesful payment for order id: {}", paymentResponseAvroModel.getOrderId());
                 paymentResponseMessageListener.paymentCompleted(orderMessagingDataMapper.paymentResponseAvroModelToPaymentResponse(paymentResponseAvroModel));
@@ -51,6 +54,14 @@ public class PaymentResponseKafkaListener implements KafkaConsumer<PaymentRespon
                 paymentResponseMessageListener.paymentCancelled(orderMessagingDataMapper.paymentResponseAvroModelToPaymentResponse(paymentResponseAvroModel));
 
             }
+          } catch (OptimisticLockingFailureException e) {
+              //NO-OP for optimistic lock. This means another thread finished the work, do not throw error to prevent reading the data from kafka again!
+              log.error("Caught optimistic locking exception in PaymentResponseKafkaListener for order id: {}",
+                      paymentResponseAvroModel.getOrderId());
+          } catch (OrderNotFoundException e) {
+              //NO-OP for OrderNotFoundException
+              log.error("No order found for order id: {}", paymentResponseAvroModel.getOrderId());
+          }
         });
     }
 }

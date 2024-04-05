@@ -14,12 +14,15 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         "com.order.system.order.service.dataaccess",
         "com.order.system.dataaccess",
 "com.order.system.data.customer.repository",
-"com.order.system.data.order.repository"})
+"com.order.system.data.order.repository",
+"com.order.system.data.outbox.payment.adapter",
+"com.order.system.data.outbox.*"})
 @EntityScan(basePackages = {
         "com.order.system.order.service.dataaccess",
         "com.order.system.dataaccess",
 "com.order.system.data.customer.entity",
-"com.order.system.data.order.entity"})
+"com.order.system.data.order.entity",
+"com.order.system.data.outbox.*"})
 @SpringBootApplication(scanBasePackages = "com.order.system")
 public class OrderServiceApplication {
     public static void main(String[] args){

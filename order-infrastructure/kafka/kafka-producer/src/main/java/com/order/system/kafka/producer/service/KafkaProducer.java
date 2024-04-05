@@ -10,5 +10,5 @@ import java.util.function.BiConsumer;
 
 @Component
 public interface KafkaProducer<K extends Serializable, V extends SpecificRecordBase> {
-    void send(String topicName, K key, V message, BiConsumer<SendResult<K, V>, Throwable> callback);
+    void send(String topicName, K key, V message, ListenableFutureCallback<SendResult<K, V>> callback);
 }

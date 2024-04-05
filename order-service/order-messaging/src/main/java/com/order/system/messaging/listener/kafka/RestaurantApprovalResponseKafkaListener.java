@@ -1,11 +1,13 @@
 package com.order.system.messaging.listener.kafka;
 
+import com.order.system.domain.core.exception.OrderNotFoundException;
 import com.order.system.domain.service.ports.input.message.listener.restaurantapproval.RestaurantApprovalResponseMessageListener;
 import com.order.system.kafka.comsumer.KafkaConsumer;
 import com.order.system.kafka.order.avro.model.OrderApprovalStatus;
 import com.order.system.kafka.order.avro.model.RestaurantApprovalResponseAvroModel;
 import com.order.system.messaging.mapper.OrderMessagingDataMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
@@ -57,7 +59,16 @@ public class RestaurantApprovalResponseKafkaListener implements KafkaConsumer<Re
                 restaurantApprovalResponseMessageListener.orderRejected(orderMessagingDataMapper
                         .approvalResponseAvroModelToApprovalResponse(restaurantApprovalResponseAvroModel));
             }
-        });
+            try {
 
+        } catch (OptimisticLockingFailureException e) {
+            //NO-OP for optimistic lock. This means another thread finished the work, do not throw error to prevent reading the data from kafka again!
+            log.error("Caught optimistic locking exception in RestaurantApprovalResponseKafkaListener for order id: {}",
+                    restaurantApprovalResponseAvroModel.getOrderId());
+        } catch (OrderNotFoundException e) {
+            //NO-OP for OrderNotFoundException
+            log.error("No order found for order id: {}", restaurantApprovalResponseAvroModel.getOrderId());
+        }
+    });
     }
 }
