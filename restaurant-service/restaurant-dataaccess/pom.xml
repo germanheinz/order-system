@@ -14,12 +14,11 @@
     <dependencies>
         <dependency>
             <groupId>com.order.system</groupId>
-            <artifactId>restaurant-application-service</artifactId>
+            <artifactId>outbox</artifactId>
         </dependency>
         <dependency>
             <groupId>com.order.system</groupId>
-            <artifactId>common-dataaccess</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>restaurant-application-service</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -30,9 +29,16 @@
             <artifactId>postgresql</artifactId>
         </dependency>
         <dependency>
-            <groupId>jakarta.persistence</groupId>
-            <artifactId>jakarta.persistence-api</artifactId>
+            <groupId>com.order.system</groupId>
+            <artifactId>order-common-dataaccess</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.order.system</groupId>
+            <artifactId>order-common-domain</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

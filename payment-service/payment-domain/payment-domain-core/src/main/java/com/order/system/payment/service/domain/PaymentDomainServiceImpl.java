@@ -20,7 +20,8 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import static java.time.ZoneOffset.UTC;
+import static com.order.system.domain.DomainConstants.UTC;
+
 
 @Slf4j
 public class PaymentDomainServiceImpl implements PaymentDomainService {
@@ -29,11 +30,7 @@ public class PaymentDomainServiceImpl implements PaymentDomainService {
     public PaymentEvent validateAndInitiatePayment(Payment payment,
                                                    CreditEntry creditEntry,
                                                    List<CreditHistory> creditHistories,
-                                                   List<String> failureMessages,
-                                                   DomainEventPublisher<PaymentCompletedEvent>
-                                                               paymentCompletedEventDomainEventPublisher,
-                                                   DomainEventPublisher<PaymentFailedEvent>
-                                                               paymentFailedEventDomainEventPublisher) {
+                                                   List<String> failureMessages) {
         payment.validatePayment(failureMessages);
         payment.initializePayment();
         validateCreditEntry(payment, creditEntry, failureMessages);
@@ -44,13 +41,11 @@ public class PaymentDomainServiceImpl implements PaymentDomainService {
         if (failureMessages.isEmpty()) {
             log.info("Payment is initiated for order id: {}", payment.getOrderId().getValue());
             payment.updateStatus(PaymentStatus.COMPLETED);
-            return new PaymentCompletedEvent(payment, ZonedDateTime.now(ZoneId.of(String.valueOf(UTC))),
-                    paymentCompletedEventDomainEventPublisher);
+            return new PaymentCompletedEvent(payment, ZonedDateTime.now(ZoneId.of(UTC)));
         } else {
             log.info("Payment initiation is failed for order id: {}", payment.getOrderId().getValue());
             payment.updateStatus(PaymentStatus.FAILED);
-            return new PaymentFailedEvent(payment, ZonedDateTime.now(ZoneId.of(String.valueOf(UTC))), failureMessages,
-                    paymentFailedEventDomainEventPublisher);
+            return new PaymentFailedEvent(payment, ZonedDateTime.now(ZoneId.of(UTC)), failureMessages);
         }
     }
 
@@ -58,26 +53,20 @@ public class PaymentDomainServiceImpl implements PaymentDomainService {
     public PaymentEvent validateAndCancelPayment(Payment payment,
                                                  CreditEntry creditEntry,
                                                  List<CreditHistory> creditHistories,
-                                                 List<String> failureMessages,
-                                                 DomainEventPublisher<PaymentCancelledEvent>
-                                                             paymentCancelledEventDomainEventPublisher,
-                                                 DomainEventPublisher<PaymentFailedEvent>
-                                                             paymentFailedEventDomainEventPublisher) {
+                                                 List<String> failureMessages) {
         payment.validatePayment(failureMessages);
         addCreditEntry(payment, creditEntry);
         updateCreditHistory(payment, creditHistories, TransactionType.CREDIT);
 
-       if (failureMessages.isEmpty()) {
-           log.info("Payment is cancelled for order id: {}", payment.getOrderId().getValue());
-           payment.updateStatus(PaymentStatus.CANCELLED);
-           return new PaymentCancelledEvent(payment, ZonedDateTime.now(ZoneId.of(String.valueOf(UTC))),
-                   paymentCancelledEventDomainEventPublisher);
-       } else {
-           log.info("Payment cancellation is failed for order id: {}", payment.getOrderId().getValue());
-           payment.updateStatus(PaymentStatus.FAILED);
-           return new PaymentFailedEvent(payment, ZonedDateTime.now(ZoneId.of(String.valueOf(UTC))), failureMessages,
-                   paymentFailedEventDomainEventPublisher);
-       }
+        if (failureMessages.isEmpty()) {
+            log.info("Payment is cancelled for order id: {}", payment.getOrderId().getValue());
+            payment.updateStatus(PaymentStatus.CANCELLED);
+            return new PaymentCancelledEvent(payment, ZonedDateTime.now(ZoneId.of(UTC)));
+        } else {
+            log.info("Payment cancellation is failed for order id: {}", payment.getOrderId().getValue());
+            payment.updateStatus(PaymentStatus.FAILED);
+            return new PaymentFailedEvent(payment, ZonedDateTime.now(ZoneId.of(UTC)), failureMessages);
+        }
     }
 
     private void validateCreditEntry(Payment payment, CreditEntry creditEntry, List<String> failureMessages) {
@@ -108,22 +97,22 @@ public class PaymentDomainServiceImpl implements PaymentDomainService {
     private void validateCreditHistory(CreditEntry creditEntry,
                                        List<CreditHistory> creditHistories,
                                        List<String> failureMessages) {
-            Money totalCreditHistory = getTotalHistoryAmount(creditHistories, TransactionType.CREDIT);
-            Money totalDebitHistory = getTotalHistoryAmount(creditHistories, TransactionType.DEBIT);
+        Money totalCreditHistory = getTotalHistoryAmount(creditHistories, TransactionType.CREDIT);
+        Money totalDebitHistory = getTotalHistoryAmount(creditHistories, TransactionType.DEBIT);
 
-            if (totalDebitHistory.iGreaterThan(totalCreditHistory)) {
-                log.error("Customer with id: {} doesn't have enough credit according to credit history",
-                        creditEntry.getCustomerId().getValue());
-                failureMessages.add("Customer with id=" + creditEntry.getCustomerId().getValue() +
-                        " doesn't have enough credit according to credit history!");
-            }
+        if (totalDebitHistory.iGreaterThan(totalCreditHistory)) {
+            log.error("Customer with id: {} doesn't have enough credit according to credit history",
+                    creditEntry.getCustomerId().getValue());
+            failureMessages.add("Customer with id=" + creditEntry.getCustomerId().getValue() +
+                    " doesn't have enough credit according to credit history!");
+        }
 
-//            if (!creditEntry.getTotalCreditAmount().equals(totalCreditHistory.substract(totalDebitHistory))) {
-//                log.error("Credit history total is not equal to current credit for customer id: {}!",
-//                        creditEntry.getCustomerId().getValue());
-//                failureMessages.add("Credit history total is not equal to current credit for customer id: {}" +
-//                        creditEntry.getCustomerId().getValue() + "!");
-//            }
+        if (!creditEntry.getTotalCreditAmount().equals(totalCreditHistory.substract(totalDebitHistory))) {
+            log.error("Credit history total is not equal to current credit for customer id: {}!",
+                    creditEntry.getCustomerId().getValue());
+            failureMessages.add("Credit history total is not equal to current credit for customer id: " +
+                    creditEntry.getCustomerId().getValue() + "!");
+        }
     }
 
     private Money getTotalHistoryAmount(List<CreditHistory> creditHistories, TransactionType transactionType) {
